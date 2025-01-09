@@ -9,11 +9,6 @@ using CorePackagesGeneral.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
@@ -87,12 +82,17 @@ namespace Business.Concrete
         [PerformanceAspect(15)]
         public IResult IsCarAvaible(int carId, DateTime startDate, DateTime endDate)
         {
-            IResult result = BusinessRules.Run(IsCarAvaibleForRent(carId,startDate,endDate));
+            IResult result = BusinessRules.Run(IsCarAvaibleForRent(carId, startDate, endDate));
             if (result != null)
             {
                 return new ErrorResult(Messages.RentACarNotAvailable);
             }
             return new SuccessResult(Messages.RentACarAvailable);
+        }
+
+        public IResult IsCarAvaible(int carId)
+        {
+            throw new NotImplementedException();
         }
 
         [SecuredOperation("Admin,Moderator,NormalUser")]
